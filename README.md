@@ -167,6 +167,22 @@ The agent searches by subject keyword (interview, recruiter, offer, etc.). This 
 **Ghosting detection**
 Detecting ghosting (no response after a certain number of days) requires knowing when the candidate last sent an email, which the current search doesn't capture. The `action_required` flag also creates a false positive here: if the candidate took an action but the company never responded, that open action eventually becomes ghosting. A proper fix would track the date of the candidate's last outbound email per company and flag it as ghosted after a configurable window.
 
+## Suggested Platform Feature
+
+**The Arcade dashboard should surface per-user operational visibility.**
+
+Arcade sits at the tool execution layer — every call goes through it, which means it already has the data to answer the questions that matter most when something breaks. Right now that data isn't surfaced, and the dashboard shows only cumulative totals that tell you very little in practice.
+
+Three specific views would make a meaningful difference for anyone operating a user-facing agent:
+
+**Tool call breakdown over time.** Cumulative counts don't help you debug or understand usage patterns. A time-series breakdown per tool — volume, error rate, latency — lets you see when failures started, which integrations are actually being used, and whether a problem is isolated or systemic.
+
+**Tool calls by user.** When a user reports their agent isn't working, there's currently no way to see what happened for that specific user. A per-user call log — which tools were called, when, and whether they succeeded — would collapse a debugging session from a guessing game into a direct lookup.
+
+**Auth status per user.** The most common reason a user-facing agent silently fails is that OAuth was never completed, expired, or was revoked. An ops view showing which users have active tokens, which have failed auth, and which have never authorized at all would let you diagnose this class of problem immediately rather than asking users to re-run the agent and watch for the auth prompt.
+
+All three of these are data Arcade already holds. Surfacing them in the dashboard would make Arcade meaningfully more operable for teams running agents in production, not just building them.
+
 ## Troubleshooting
 
 **"Missing required environment variable"** — Copy `.env.example` to `.env` and fill in all values.
