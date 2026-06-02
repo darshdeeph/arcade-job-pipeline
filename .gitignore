@@ -1,0 +1,13 @@
+# Environment — never commit secrets
+.env
+
+# SQLite cache — local only, regenerated on next sync
+thread_cache.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
